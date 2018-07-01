@@ -45,7 +45,7 @@ $(".animeButton").on("click", function() {
         for (var i = 0; i < results.length ; i++) {
             
             //create div to house a gif's properties
-            var gifDiv = $("<div>");
+            var gifDiv = $("<div class='gifImages'>");
             var gifRating = results[i].rating;
             var ratingDisplay = $("<p>").text("Rating: " + gifRating);            
             var animeImage = $("<img>");
@@ -55,7 +55,8 @@ $(".animeButton").on("click", function() {
                 "src" : results[i].images.fixed_height_still.url,
                 "active" : results[i].images.fixed_height.url,
                 "still" : results[i].images.fixed_height_still.url,
-                "status" : "still"
+                "currentStatus" : "gifStill",
+                "class" : 'gifImages'
             });
 
             //append rating display
@@ -67,8 +68,25 @@ $(".animeButton").on("click", function() {
             //display div of gif properties
             $("#listGifs").append(gifDiv);
             // debugger;
+        
+
+
+
         }
+
+        //play and stop gifs
+        $(".gifImages").on("click", function() {
+            var gifStatus = $(this).attr("currentStatus");
+
+            if (gifStatus === "gifStill") {
+                $(this).attr("src", $(this).attr("active"));
+                $(this).attr("currentStatus","gifActive");
+            } else if (gifStatus === "gifActive") {
+                $(this).attr("src", $(this).attr("still"));
+                $(this).attr("currentStatus","gifStill");
+            }
+        });
     });
-})
+});
 
 //add new item to animeList on Click function
