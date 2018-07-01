@@ -36,7 +36,24 @@ $(".animeButton").on("click", function() {
         method: "GET"
     })
     .then(function(data) {
-    debugger;
+        clearGifs();
+        var results = data.data;
+
+        for (var i = 0; i < results.length ; i++) {
+            var gifDiv = $("<div>");
+            
+            var gifRating = results[i].rating;
+
+            var ratingDisplay = $("<p>").text("Rating: " + gifRating);
+            
+
+            var animeImage = $("<img>");
+            animeImage.attr("src", results[i].images.fixed_height.url);
+            gifDiv.append(ratingDisplay);
+            gifDiv.append(animeImage);
+
+            $("#listGifs").append(gifDiv);
+        }
     });
 })
 
