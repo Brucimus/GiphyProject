@@ -25,6 +25,17 @@ function displayButtons() {
 }
 
 displayButtons();
+
+//add new item to animeList on Click function
+// $("#submitButton").on("click", function (event) {
+//     event.preventDefault();
+//     var inputVal = $("#submittedValue").val();
+//     animeList.push(inputVal);
+//     $("#submittedValue").val("");
+//     displayButtons();
+
+// });
+
 //on animeButton click
 $(".animeButton").on("click", function() {
     //function specific variables
@@ -67,11 +78,6 @@ $(".animeButton").on("click", function() {
 
             //display div of gif properties
             $("#listGifs").append(gifDiv);
-            // debugger;
-        
-
-
-
         }
 
         //play and stop gifs
@@ -89,4 +95,3 @@ $(".animeButton").on("click", function() {
     });
 });
 
-//add new item to animeList on Click function
