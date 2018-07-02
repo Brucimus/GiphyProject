@@ -22,22 +22,9 @@ function displayButtons() {
         });
         $("#listButtons").append(buttonCreate);
     }
-}
 
-displayButtons();
-
-//add new item to animeList on Click function
-// $("#submitButton").on("click", function (event) {
-//     event.preventDefault();
-//     var inputVal = $("#submittedValue").val();
-//     animeList.push(inputVal);
-//     $("#submittedValue").val("");
-//     displayButtons();
-
-// });
-
-//on animeButton click
-$(".animeButton").on("click", function() {
+    //on animeButton click
+    $(".animeButton").click(function() {
     //function specific variables
     var buttonValue = $(this).attr("value");
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + buttonValue +"&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt&limit=10";
@@ -81,7 +68,7 @@ $(".animeButton").on("click", function() {
         }
 
         //play and stop gifs
-        $(".gifImages").on("click", function() {
+        $(".gifImages").click(function() {
             var gifStatus = $(this).attr("currentStatus");
 
             if (gifStatus === "gifStill") {
@@ -93,5 +80,20 @@ $(".animeButton").on("click", function() {
             }
         });
     });
+});
+
+
+}
+
+displayButtons();
+
+//add new item to animeList on Click function
+$("#submitButton").click(function (event) {
+    event.preventDefault();
+    var inputVal = $("#submittedValue").val();
+    animeList.push(inputVal);
+    $("#submittedValue").val("");
+    displayButtons();
+
 });
 
