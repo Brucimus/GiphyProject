@@ -6,9 +6,9 @@
         </title>
 
         <!--CSS Links-->
-        <link rel="stylesheet" type="style/css" href="assets/css/reset.css"/>
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
-        <link rel="stylesheet" type="style/css" href="assets/css/style.css"/>
+        <link rel="stylesheet" href="assets/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/style.css">
 
         <!--jquery link-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -17,23 +17,33 @@
     <body>
 
         <!--Title-->
-
-        <!--New Entry text Box and Button-->
-        <form class="form-inline">
-            <label class="sr-only" for="inlineFormInputName2">Anime</label>
-            <input type="text" id="submittedValue" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Anime">
-            
-            <button type="submit" id="submitButton" class="btn btn-primary mb-2">Submit</button>
-        </form>
-
-        <!--List of Buttons-->
-        <div id=listButtons>
-
+        <div class="navbar-dark bg-dark text-center">
+                <h1 class="display-4 text-center"><strong>Giphy Project</strong></h1>
         </div>
 
-        <!--gif listings-->
-        <div id=listGifs>
+        <!--New Entry text Box and Button-->
+        <div id=entryForm>
+            <form class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">Anime</label>
+                <input type="text" id="submittedValue" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Anime">
+                
+                <button type="submit" id="submitButton" class="btn btn-primary mb-2">Submit</button>
+            </form>
+        </div>
 
+        <!--List of Buttons-->
+        <div class="card">
+            <div id=listButtons class="card-body">
+                
+            </div>
+        </div>
+
+
+        <!--gif listings-->
+        <div class="card">
+            <div id=listGifs>
+
+            </div>
         </div>
 
         <!--Link to Javascript File-->

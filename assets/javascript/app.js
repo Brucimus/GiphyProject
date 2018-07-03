@@ -57,11 +57,11 @@ function displayButtons() {
                     "class" : 'gifImages'
                 });
 
-                //append rating display
-                gifDiv.append(ratingDisplay);
-
                 //append gif image
                 gifDiv.append(animeImage);
+
+                //append rating display
+                gifDiv.append(ratingDisplay);
 
                 //display div of gif properties
                 $("#listGifs").append(gifDiv);
