@@ -27,7 +27,9 @@ function displayButtons() {
     $(".animeButton").click(function() {
         //function specific variables
         var buttonValue = $(this).attr("value");
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + buttonValue +"&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt&limit=10";
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q="
+            + buttonValue +
+            "&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt&limit=10";
 
         $.ajax({
             url: queryURL,
@@ -43,16 +45,17 @@ function displayButtons() {
             for (var i = 0; i < results.length ; i++) {
                 
                 //create div to house a gif's properties
+                var randomNumber = Math.floor(Math.random() * results.length);
                 var gifDiv = $("<div class='gifImages'>");
-                var gifRating = results[i].rating;
+                var gifRating = results[randomNumber].rating;
                 var ratingDisplay = $("<p>").text("Rating: " + gifRating);            
                 var animeImage = $("<img>");
 
                 //source still and gif images
                 animeImage.attr( {
-                    "src" : results[i].images.fixed_height_still.url,
-                    "active" : results[i].images.fixed_height.url,
-                    "still" : results[i].images.fixed_height_still.url,
+                    "src" : results[randomNumber].images.fixed_height_still.url,
+                    "active" : results[randomNumber].images.fixed_height.url,
+                    "still" : results[randomNumber].images.fixed_height_still.url,
                     "currentStatus" : "gifStill",
                     "class" : 'gifImages'
                 });
