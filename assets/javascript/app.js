@@ -1,5 +1,11 @@
 //variables
-var animeList = ["dragonball", "gundam wing", "gundam seed", "pokemon", "digimon", "naruto", "full metal alchemist", "full metal panic"]
+var animeList;
+if (!localStorage.getItem("localAnimeList")) {
+    animeList = ["dragonball", "gundam wing", "gundam seed", "pokemon", "digimon", "naruto", "full metal alchemist", "full metal panic"]
+    localStorage.setItem("localAnimeList", JSON.stringify(animeList));
+} else {
+    animeList = JSON.parse(localStorage.getItem("localAnimeList"));
+}
 
 //clear button listings function
 function clearButtons() {
@@ -13,11 +19,12 @@ function clearGifs() {
 
 //loop through animeList array for display
 function displayButtons() {
+    var tempList = JSON.parse(localStorage.getItem("localAnimeList"));
     clearButtons();
-    for (var i = 0; i < animeList.length; i++) {
-        var buttonCreate = $("<button>" + animeList[i] + "</button>");
+    for (var i = 0; i < tempList.length; i++) {
+        var buttonCreate = $("<button>" + tempList[i] + "</button>");
         buttonCreate.attr({
-            "value" : animeList[i],
+            "value" : tempList[i],
             "class" : "animeButton"
         });
         $("#listButtons").append(buttonCreate);
@@ -93,6 +100,8 @@ $("#submitButton").click(function (event) {
     event.preventDefault();
     var inputVal = $("#submittedValue").val();
     animeList.push(inputVal);
+    localStorage.setItem("localAnimeList", JSON.stringify(animeList));
+    debugger;
     $("#submittedValue").val("");
     displayButtons();
 
