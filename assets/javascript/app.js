@@ -101,7 +101,6 @@ $("#submitButton").click(function (event) {
     var inputVal = $("#submittedValue").val();
     animeList.push(inputVal);
     localStorage.setItem("localAnimeList", JSON.stringify(animeList));
-    debugger;
     $("#submittedValue").val("");
     displayButtons();
 
