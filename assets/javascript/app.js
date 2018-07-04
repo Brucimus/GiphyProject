@@ -1,4 +1,4 @@
-//variables
+//check if anime list variable availabe on local storage
 var animeList;
 if (!localStorage.getItem("localAnimeList")) {
     animeList = ["dragonball", "gundam wing", "gundam seed", "pokemon", "digimon", "naruto", "full metal alchemist", "full metal panic"]
@@ -36,8 +36,8 @@ function displayButtons() {
         var buttonValue = $(this).attr("value");
         var queryURL = "http://api.giphy.com/v1/gifs/search?q="
             + buttonValue +
-            "&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt&limit=10";
-
+            "&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";
+        
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -49,14 +49,17 @@ function displayButtons() {
             var results = data.data;
 
             //iterate through pulled gifs to display Ratings and Gifs
-            for (var i = 0; i < results.length ; i++) {
+            for (var i = 0; i < 10 ; i++) {
                 
                 //create div to house a gif's properties
                 var randomNumber = Math.floor(Math.random() * results.length);
                 var gifDiv = $("<div class='gifImages'>");
                 var gifRating = results[randomNumber].rating;
-                var ratingDisplay = $("<p>").text("Rating: " + gifRating);            
+                var gifTitle = results[randomNumber].title;
+                var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
+                var titleDisplay = $("<p>").text("Title: " + gifTitle);           
                 var animeImage = $("<img>");
+                var favButton = $("<button>Favorite</button>");
 
                 //source still and gif images
                 animeImage.attr( {
@@ -67,11 +70,20 @@ function displayButtons() {
                     "class" : 'gifImages'
                 });
 
+                //favButton add class
+                favButton.addClass("favoriteButton");
+
                 //append gif image
                 gifDiv.append(animeImage);
+                
+                //append gif title
+                gifDiv.append(titleDisplay);
 
                 //append rating display
                 gifDiv.append(ratingDisplay);
+
+                //append favorite button
+                gifDiv.append(favButton);
 
                 //display div of gif properties
                 $("#listGifs").append(gifDiv);

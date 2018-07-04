@@ -12,3 +12,12 @@
 .display-4 {
     height: 80px;
 }
+
+.animeButton {
+    margin: 5px;
+}
+
+.accordion .card:first-of-type {
+    border-radius: .25rem;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
