@@ -1,10 +1,19 @@
-//check if anime list variable availabe on local storage
+//check if anime list variable available on local storage
 var animeList;
 if (!localStorage.getItem("localAnimeList")) {
     animeList = ["dragonball", "gundam wing", "gundam seed", "pokemon", "digimon", "naruto", "full metal alchemist", "full metal panic"]
     localStorage.setItem("localAnimeList", JSON.stringify(animeList));
 } else {
     animeList = JSON.parse(localStorage.getItem("localAnimeList"));
+}
+
+//check if favorite anime list available on local storage
+var favoriteAnimesList;
+if (!localStorage.getItem("favoriteLocalAnimeList")) {
+    favoriteAnimesList = [];
+    localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
+} else {
+    favoriteAnimesList = JSON.parse(localStorage.getItem("favoriteLocalAnimeList"));    
 }
 
 //clear button listings function
@@ -88,6 +97,11 @@ function displayButtons() {
                 //display div of gif properties
                 $("#listGifs").append(gifDiv);
             }
+
+            //add to favorites section
+            $(".favoriteButton").click(function() {
+                $("#favoritesContainer").append()
+            })
 
             //play and stop gifs
             $(".gifImages").click(function() {
