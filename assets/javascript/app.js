@@ -68,7 +68,7 @@ function displayFavoriteGifs() {
             var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
             var titleDisplay = $("<p>").text("Title: " + gifTitle);           
             var animeImage = $("<img>");
-            var favButton = $("<button>Delete</button>");
+            var delFavButton = $("<button>Delete</button>");
 
             //source still and gif images
             animeImage.attr( {
@@ -80,7 +80,7 @@ function displayFavoriteGifs() {
             });
 
             //favButton add class
-            favButton.addClass("deletFromFavoritesButton");
+            delFavButton.addClass("deletFromFavoritesButton");
 
             //append gif image
             gifDiv.append(animeImage);
@@ -90,6 +90,9 @@ function displayFavoriteGifs() {
 
             //append rating display
             gifDiv.append(ratingDisplay);
+
+            //append delete button
+            gifDiv.append(delFavButton);
 
             //display div of gif properties
             $("#favoritesContainer").append(gifDiv);
@@ -117,6 +120,7 @@ function displayButtons() {
 
     //on animeButton click
     $(".animeButton").click(function() {
+        event.preventDefault();
         //function specific variables
         var buttonValue = $(this).attr("value");
         var queryURL = "http://api.giphy.com/v1/gifs/search?q="
@@ -177,7 +181,10 @@ function displayButtons() {
 
             //add to favorites section
             $(".favoriteButton").click(function() {
-                $("#favoritesContainer").append()
+                event.preventDefault();
+                favoriteAnimesList.push($(this).attr("value"));
+                localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
+                displayFavoriteGifs();
             })
 
             //play and stop gifs
