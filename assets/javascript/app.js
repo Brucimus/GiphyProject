@@ -10,7 +10,7 @@ if (!localStorage.getItem("localAnimeList")) {
 //check if favorite anime list available on local storage
 var favoriteAnimesList;
 if (!localStorage.getItem("favoriteLocalAnimeList")) {
-    favoriteAnimesList = [];
+    favoriteAnimesList = ["cxbAEsQcdrkSA"];
     localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
 } else {
     favoriteAnimesList = JSON.parse(localStorage.getItem("favoriteLocalAnimeList"));    
@@ -25,6 +25,82 @@ function clearButtons() {
 function clearGifs() {
     $("#listGifs").empty();
 }
+
+//clear favorites container
+function clearFavorites() {
+    $("#favoritesContainer").empty();
+}
+
+//play pause gif function
+function playPause() {
+    $(".gifImages").click(function() {
+        var gifStatus = $(this).attr("currentStatus");
+
+        if (gifStatus === "gifStill") {
+            $(this).attr("src", $(this).attr("active"));
+            $(this).attr("currentStatus","gifActive");
+        } else if (gifStatus === "gifActive") {
+            $(this).attr("src", $(this).attr("still"));
+            $(this).attr("currentStatus","gifStill");
+        }
+    });
+}
+
+//display favorites
+function displayFavoriteGifs() {
+    clearFavorites();
+
+    for (var i = 0; i < favoriteAnimesList.length ; i++) {
+        var queryURL = "http://api.giphy.com/v1/gifs/"
+                + favoriteAnimesList[i] +
+                "?api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";
+            
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        .then(function(data) {
+            var results = data.data;
+            debugger;
+            var gifDiv = $("<div class='gifImages'>");
+            var gifRating = results.rating;
+            var gifTitle = results.title;
+            var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
+            var titleDisplay = $("<p>").text("Title: " + gifTitle);           
+            var animeImage = $("<img>");
+            var favButton = $("<button>Delete</button>");
+
+            //source still and gif images
+            animeImage.attr( {
+                "src" : results.images.fixed_height_still.url,
+                "active" : results.images.fixed_height.url,
+                "still" : results.images.fixed_height_still.url,
+                "currentStatus" : "gifStill",
+                "class" : 'gifImages'
+            });
+
+            //favButton add class
+            favButton.addClass("deletFromFavoritesButton");
+
+            //append gif image
+            gifDiv.append(animeImage);
+            
+            //append gif title
+            gifDiv.append(titleDisplay);
+
+            //append rating display
+            gifDiv.append(ratingDisplay);
+
+            //display div of gif properties
+            $("#favoritesContainer").append(gifDiv);
+
+            //play pause gif
+            playPause();
+        });
+    }
+}
+
+displayFavoriteGifs();
 
 //loop through animeList array for display
 function displayButtons() {
@@ -81,6 +157,7 @@ function displayButtons() {
 
                 //favButton add class
                 favButton.addClass("favoriteButton");
+                favButton.attr("value", results[randomNumber].id);
 
                 //append gif image
                 gifDiv.append(animeImage);
@@ -104,17 +181,7 @@ function displayButtons() {
             })
 
             //play and stop gifs
-            $(".gifImages").click(function() {
-                var gifStatus = $(this).attr("currentStatus");
-
-                if (gifStatus === "gifStill") {
-                    $(this).attr("src", $(this).attr("active"));
-                    $(this).attr("currentStatus","gifActive");
-                } else if (gifStatus === "gifActive") {
-                    $(this).attr("src", $(this).attr("still"));
-                    $(this).attr("currentStatus","gifStill");
-                }
-            });
+            playPause();
         });
     });
 }
