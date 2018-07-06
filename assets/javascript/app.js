@@ -10,7 +10,7 @@ if (!localStorage.getItem("localAnimeList")) {
 //check if favorite anime list available on local storage
 var favoriteAnimesList;
 if (!localStorage.getItem("favoriteLocalAnimeList")) {
-    favoriteAnimesList = ["cxbAEsQcdrkSA"];
+    favoriteAnimesList = [];
     localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
 } else {
     favoriteAnimesList = JSON.parse(localStorage.getItem("favoriteLocalAnimeList"));    
@@ -43,7 +43,18 @@ function playPause() {
             $(this).attr("src", $(this).attr("still"));
             $(this).attr("currentStatus","gifStill");
         }
+        // debugger;
     });
+}
+
+//add to favorites
+function addToFavorites() {
+    $(".favoriteButton").click(function() {
+        event.preventDefault();
+        favoriteAnimesList.push($(this).attr("value"));
+        localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
+        displayFavoriteGifs();
+    })
 }
 
 //display favorites
@@ -53,34 +64,25 @@ function displayFavoriteGifs() {
     for (var i = 0; i < favoriteAnimesList.length ; i++) {
         var queryURL = "http://api.giphy.com/v1/gifs/"
                 + favoriteAnimesList[i] +
-                "?api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";
-            
+                "?api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";   
         $.ajax({
             url: queryURL,
             method: "GET"
         })
         .then(function(data) {
             var results = data.data;
-            debugger;
             var gifDiv = $("<div class='gifImages'>");
             var gifRating = results.rating;
             var gifTitle = results.title;
             var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
             var titleDisplay = $("<p>").text("Title: " + gifTitle);           
             var animeImage = $("<img>");
-            var delFavButton = $("<button>Delete</button>");
 
             //source still and gif images
             animeImage.attr( {
-                "src" : results.images.fixed_height_still.url,
-                "active" : results.images.fixed_height.url,
-                "still" : results.images.fixed_height_still.url,
-                "currentStatus" : "gifStill",
+                "src" : results.images.fixed_height.url,
                 "class" : 'gifImages'
             });
-
-            //favButton add class
-            delFavButton.addClass("deletFromFavoritesButton");
 
             //append gif image
             gifDiv.append(animeImage);
@@ -91,14 +93,10 @@ function displayFavoriteGifs() {
             //append rating display
             gifDiv.append(ratingDisplay);
 
-            //append delete button
-            gifDiv.append(delFavButton);
 
             //display div of gif properties
             $("#favoritesContainer").append(gifDiv);
-
-            //play pause gif
-            playPause();
+            
         });
     }
 }
@@ -180,12 +178,7 @@ function displayButtons() {
             }
 
             //add to favorites section
-            $(".favoriteButton").click(function() {
-                event.preventDefault();
-                favoriteAnimesList.push($(this).attr("value"));
-                localStorage.setItem("favoriteLocalAnimeList", JSON.stringify(favoriteAnimesList));
-                displayFavoriteGifs();
-            })
+            addToFavorites();
 
             //play and stop gifs
             playPause();
