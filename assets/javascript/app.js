@@ -33,7 +33,7 @@ function clearFavorites() {
 
 //play pause gif function
 function playPause() {
-    $(".gifImages").click(function() {
+    $(".gifActual").click(function() {
         var gifStatus = $(this).attr("currentStatus");
 
         if (gifStatus === "gifStill") {
@@ -71,7 +71,7 @@ function displayFavoriteGifs() {
         })
         .then(function(data) {
             var results = data.data;
-            var gifDiv = $("<div class='gifImages'>");
+            var gifDiv = $("<div class='imageContainer'>");
             var gifRating = results.rating;
             var gifTitle = results.title;
             var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
@@ -81,7 +81,7 @@ function displayFavoriteGifs() {
             //source still and gif images
             animeImage.attr( {
                 "src" : results.images.fixed_height.url,
-                "class" : 'gifImages'
+                "class" : 'gifActual'
             });
 
             //append gif image
@@ -140,7 +140,7 @@ function displayButtons() {
                 
                 //create div to house a gif's properties
                 var randomNumber = Math.floor(Math.random() * results.length);
-                var gifDiv = $("<div class='gifImages'>");
+                var gifDiv = $("<div class='imageContainer'>");
                 var gifRating = results[randomNumber].rating;
                 var gifTitle = results[randomNumber].title;
                 var ratingDisplay = $("<p>").text("Rating: " + gifRating); 
@@ -154,7 +154,7 @@ function displayButtons() {
                     "active" : results[randomNumber].images.fixed_height.url,
                     "still" : results[randomNumber].images.fixed_height_still.url,
                     "currentStatus" : "gifStill",
-                    "class" : 'gifImages'
+                    "class" : 'gifActual'
                 });
 
                 //favButton add class
