@@ -62,7 +62,7 @@ function displayFavoriteGifs() {
     clearFavorites();
 
     for (var i = 0; i < favoriteAnimesList.length ; i++) {
-        var queryURL = "http://api.giphy.com/v1/gifs/"
+        var queryURL = "https://api.giphy.com/v1/gifs/"
                 + favoriteAnimesList[i] +
                 "?api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";   
         $.ajax({
@@ -121,7 +121,7 @@ function displayButtons() {
         event.preventDefault();
         //function specific variables
         var buttonValue = $(this).attr("value");
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q="
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q="
             + buttonValue +
             "&api_key=KVdYfEzpM2XtyY8DMGDjdoamhv13jNZt";
         
